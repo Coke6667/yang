@@ -1,0 +1,70 @@
+server:
+  port: 8080
+  #处理 knife4j 循环冲突
+  main:
+    allow-circular-references: true
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/yang_boot?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # 配置文件上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  #Redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0 # Redis数据库索引（默认为0）
+    password:   # Redis服务器连接密码（默认为空）
+    lettuce:
+      pool:
+        max-active: 8        # 连接池最大连接数(使用负值表示没有限制） 默认8
+        max-wait: -1         #连接池最大阻塞等待时间（使用负值表示没有限制） 默认-1
+        max-idle: 8          #连接池最大空闲连接 默认8
+        min-idle: 0
+    timeout: 2000 # 连接超时时间（毫秒）
+    #  cache:
+    #    redis:
+    #      cache-null-values: true
+    #      time-to-live: 600000ms
+    #    cache-names: cache1,cache2
+    #    type: redis
+
+# slf4j
+logging:
+  level:
+    root: info
+    com.coke.yangboot.modules: debug
+  config: classpath:logback.xml
+
+#mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:com/coke/yangboot/modules/**/**/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#pagehelper
+pagehelper:
+  helper-dialect: mysql  #设置数据库类型
+  reasonable: true  #开启合理化：页码<=0 查询第一页，页码>=总页数查询最后一页
+  support-methods-arguments: true  #支持通过 Mapper 接口参数来传递分页参数
+  params: count=countsql
+#minio
+minio:
+  endpoint: http://127.0.0.1:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: bucket01
+#RocketMQ 生产者
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: group-test
+

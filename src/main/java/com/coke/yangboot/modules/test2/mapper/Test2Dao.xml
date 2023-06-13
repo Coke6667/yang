@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.coke.yangboot.modules.test2.dao.Test2Dao">
+
+    <select id="getUserList" resultType="com.coke.yangboot.modules.test2.dto.Test2Dto">
+       select * from user_info
+    </select>
+
+    <insert id="saveUser" parameterType="com.coke.yangboot.modules.test2.dto.Test2Dto">
+       insert into user_info(id,user_name,age)values(#{id},#{userName},#{age})
+    </insert>
+
+</mapper>
